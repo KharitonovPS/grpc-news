@@ -1,0 +1,19 @@
+syntax = "proto3";
+package org.kps.grpc;
+//билдим проект, после чего получаем классы в generated для наследования
+message TaskRequest{
+
+  optional string dev = 1;
+
+  repeated string task = 2;
+
+}
+message TaskResponse{
+
+  string task = 1 ;
+
+}
+
+service TasksService {
+  rpc addTasks(TaskRequest) returns (TaskResponse);
+}

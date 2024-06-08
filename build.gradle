@@ -77,6 +77,8 @@ sourceSets {
     main {
         proto {
             srcDir 'src/main/java'
+//                        srcDir 'src/main/java/org/kps/proto'
+
         }
     }
 }
