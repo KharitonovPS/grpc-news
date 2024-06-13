@@ -1,0 +1,9 @@
+spring:
+  application.name: grpc-client
+  graphql:
+    path: /graphql
+    graphiql:
+      enabled: true
+      path: /graphiql
+  mvc:
+    static-path-pattern: "/resources/**"
