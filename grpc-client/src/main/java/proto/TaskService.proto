@@ -15,5 +15,5 @@ message TaskResponse{
 }
 
 service TasksService {
-  rpc addTasks(TaskRequest) returns (stream TaskResponse);
+  rpc addTasks(TaskRequest) returns (TaskResponse);
 }
