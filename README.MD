@@ -1,5 +1,18 @@
 ### Получение сущностей по ID
-
+```
+// можем добавлять и убирать поля в запросе, не меняя dto
+query newsDetails {
+  newsById(id: "news-1") {
+    id
+    name
+    pageCount
+    author {
+      firstName
+      lastName
+    }
+  }
+}
+```
 
 
 
