@@ -1,0 +1,11 @@
+query newsDetails($id: ID) {
+  newsById(id: $id) {
+    id
+    name
+    pageCount
+    author {
+      firstName
+      lastName
+    }
+  }
+}
