@@ -7,3 +7,9 @@ spring:
       path: /graphiql
   mvc:
     static-path-pattern: "/resources/**"
+
+logging:
+  level:
+    org.springframework:
+      graphql: debug
+      web: debug

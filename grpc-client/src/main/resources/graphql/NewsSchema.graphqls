@@ -1,26 +1,30 @@
 type Query {
     newsById(id: ID): News
+    findAll: [News]!
+
 }
 
+
+
 type Mutation {
-    addNews(newsInput: NewsInput): News
+addNews(newsInput: NewsInput): News
 }
 
 input NewsInput {
-    name: String!
-    pageCount: Int
-    authorId: ID!
+name: String!
+pageCount: Int
+authorId: ID!
 }
 
 type News {
-    id: ID
-    name: String
-    pageCount: Int
-    author: Author
+id: ID
+name: String
+pageCount: Int
+author: Author
 }
 
 type Author {
-    id: ID
-    firstName: String
-    lastName: String
+id: ID
+firstName: String
+lastName: String
 }

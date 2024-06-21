@@ -9,6 +9,8 @@ import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.graphql.data.method.annotation.SchemaMapping;
 import org.springframework.stereotype.Controller;
 
+import java.util.List;
+
 @Controller
 public class NewsController {
 
@@ -17,10 +19,17 @@ public class NewsController {
         return News.getById(id);
     }
 
+    @QueryMapping
+    public List<News> findAll() {
+        return News.findAll();
+    }
+
     @MutationMapping
-    public News addNews(@Argument NewsInput newsInput){
+    public News addNews(@Argument NewsInput newsInput) {
         Author author = Author.getById(newsInput.authorId());
-        return new News("newId",newsInput.name(),newsInput.pageCount(), author.id());
+        var newNews = new News("newId", newsInput.name(), newsInput.pageCount(), author.id());
+        News.create(newNews);
+        return newNews;
     }
 
     @SchemaMapping

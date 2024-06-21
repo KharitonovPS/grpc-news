@@ -15,24 +15,20 @@ public class NewsController {
     @Test
     void shouldReturnFirstNews() {
         this.graphQlTester
-                    .documentName("newsDetails")
-                    .variable("id", "news-1")
-                    .execute()
+                .documentName("newsDetails")
+                .variable("id", "news-1")
+                .execute()
                 .path("newsById")
                 .matchesJson("""
                         {
-                          "data": {
-                            "newsById": {
-                              "id": "news-1",
-                              "name": "Effective Java",
-                              "pageCount": 416,
-                              "author": {
+                            "id": "news-1",
+                            "name": "Effective Java",
+                            "pageCount": 416,
+                            "author": {
                                 "firstName": "Joshua",
                                 "lastName": "Bloch"
-                              }
                             }
-                          }
                         }
-                        """);
+                        """) ;
     }
 }

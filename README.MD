@@ -13,8 +13,19 @@ query newsDetails {
   }
 }
 ```
-
-
+### FindAll()
+```query All {
+  findAll {
+    id
+    name
+    pageCount
+    author {
+      id
+      firstName
+      lastName
+    }
+  }
+}```
 
 ### Добавление суности
 
