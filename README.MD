@@ -1,4 +1,5 @@
 ### Получение сущностей по ID
+
 ```
 // можем добавлять и убирать поля в запросе, не меняя dto
 query newsDetails {
@@ -13,8 +14,11 @@ query newsDetails {
   }
 }
 ```
+
 ### FindAll()
-```query All {
+
+```
+query All {
   findAll {
     id
     name
@@ -25,11 +29,12 @@ query newsDetails {
       lastName
     }
   }
-}```
+```
 
 ### Добавление суности
 
-```mutation{
+```
+mutation{
 //название метода и инпут парам мапится в контроллер
 	  addNews(newsInput: 
     {
@@ -42,4 +47,25 @@ query newsDetails {
     id 
     name
   } 
-}```
+}
+```
+
+### update
+
+```
+mutation upd {
+  updateNews(
+    id: "news-3"
+    newsInput: {name: "Java 4 stupids", pageCount: 123, authorId: "author-1"}
+  ) {
+    id
+    name
+    pageCount
+    author {
+      id
+      firstName
+      lastName
+    }
+  }
+}
+```

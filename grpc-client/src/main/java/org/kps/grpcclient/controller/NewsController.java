@@ -25,11 +25,21 @@ public class NewsController {
     }
 
     @MutationMapping
+    //можно принимать много парамов и на каждый вешать @Argument
     public News addNews(@Argument NewsInput newsInput) {
         Author author = Author.getById(newsInput.authorId());
         var newNews = new News("newId", newsInput.name(), newsInput.pageCount(), author.id());
-        News.create(newNews);
-        return newNews;
+        return News.create(newNews);
+    }
+
+    @MutationMapping
+    public News updateNews(@Argument String id, @Argument NewsInput newsInput) {
+        return News.updateNews(id, newsInput.name(), newsInput.pageCount(), newsInput.authorId());
+    }
+
+    @MutationMapping
+    public News delete(@Argument String id) {
+        return News.deleteById(id);
     }
 
     @SchemaMapping
