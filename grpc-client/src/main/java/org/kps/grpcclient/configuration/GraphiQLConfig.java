@@ -1,13 +1,13 @@
 package org.kps.grpcclient.configuration;
 
-import lombok.RequiredArgsConstructor;
+import graphql.schema.idl.TypeRuntimeWiring;
+import org.kps.grpcclient.service.Rating;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.graphql.server.WebGraphQlHandler;
+import org.springframework.graphql.execution.RuntimeWiringConfigurer;
 import org.springframework.graphql.server.webmvc.GraphiQlHandler;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.function.RouterFunction;
 import org.springframework.web.servlet.function.RouterFunctions;
 import org.springframework.web.servlet.function.ServerResponse;
@@ -19,12 +19,19 @@ public class GraphiQLConfig {
     @Order(0)
     public RouterFunction<ServerResponse> graphiQlRouterFunction() {
         RouterFunctions.Builder builder = RouterFunctions.route();
-        ClassPathResource graphiQlPage = new ClassPathResource("graphiql/index.html");
+        ClassPathResource graphiQlPage = new ClassPathResource("static/graphiql/index.html");
         GraphiQlHandler graphiQLHandler = new GraphiQlHandler("/graphql", "", graphiQlPage);
         builder = builder.GET("/graphiql", graphiQLHandler::handleRequest);
         return builder.build();
     }
 
+    @Bean
+    public RuntimeWiringConfigurer runtimeWiringConfigurer() {
+        return wiringBuilder -> wiringBuilder
+                .type(TypeRuntimeWiring.newTypeWiring("Rating", typeBuilder -> typeBuilder.enumValues
+                        (star -> Rating.fromCustomValue(star))
+                )).build();
+    }
 
 }
 

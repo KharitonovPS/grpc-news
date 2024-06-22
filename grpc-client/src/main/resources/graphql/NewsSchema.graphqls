@@ -12,6 +12,7 @@ type Mutation {
 input NewsInput {
     name: String!
     pageCount: Int
+    rating: Rating
     authorId: ID!
 }
 
@@ -30,9 +31,9 @@ type Author {
 }
 
 enum Rating {
-    FIVE_STAR
-    FOUR_STAR
-    THREE_STAR
-    TWO_STAR
-    ONE_STAR
+    five
+    four
+    three
+    two
+    one
 }

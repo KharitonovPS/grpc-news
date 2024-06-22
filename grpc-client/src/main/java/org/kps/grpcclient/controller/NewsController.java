@@ -28,7 +28,7 @@ public class NewsController {
     //можно принимать много парамов и на каждый вешать @Argument
     public News addNews(@Argument NewsInput newsInput) {
         Author author = Author.getById(newsInput.authorId());
-        var newNews = new News("newId", newsInput.name(), newsInput.pageCount(), newsInput.rating(), author.id());
+        var newNews = new News("newId", newsInput.name(), newsInput.pageCount(), newsInput.rating().name(), author.id());
         return News.create(newNews);
     }
 
