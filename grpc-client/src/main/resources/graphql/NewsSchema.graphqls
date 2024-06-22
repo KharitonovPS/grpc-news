@@ -19,6 +19,7 @@ type News {
     id: ID
     name: String
     pageCount: Int
+    rating: Rating
     author: Author
 }
 
@@ -26,4 +27,12 @@ type Author {
     id: ID
     firstName: String
     lastName: String
+}
+
+enum Rating {
+    FIVE_STAR
+    FOUR_STAR
+    THREE_STAR
+    TWO_STAR
+    ONE_STAR
 }

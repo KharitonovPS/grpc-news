@@ -28,13 +28,13 @@ public class NewsController {
     //можно принимать много парамов и на каждый вешать @Argument
     public News addNews(@Argument NewsInput newsInput) {
         Author author = Author.getById(newsInput.authorId());
-        var newNews = new News("newId", newsInput.name(), newsInput.pageCount(), author.id());
+        var newNews = new News("newId", newsInput.name(), newsInput.pageCount(), newsInput.rating(), author.id());
         return News.create(newNews);
     }
 
     @MutationMapping
     public News updateNews(@Argument String id, @Argument NewsInput newsInput) {
-        return News.updateNews(id, newsInput.name(), newsInput.pageCount(), newsInput.authorId());
+        return News.updateNews(id, newsInput.name(), newsInput.pageCount(), newsInput.rating(), newsInput.authorId());
     }
 
     @MutationMapping
@@ -46,4 +46,9 @@ public class NewsController {
     public Author author(News news) {
         return Author.getById(news.authorId());
     }
+
+//    @SchemaMapping
+//    public Rating rating(News news){
+//        return
+//    }
 }
