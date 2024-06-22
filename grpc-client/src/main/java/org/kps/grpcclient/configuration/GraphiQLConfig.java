@@ -25,13 +25,5 @@ public class GraphiQLConfig {
         return builder.build();
     }
 
-    @Bean
-    public RuntimeWiringConfigurer runtimeWiringConfigurer() {
-        return wiringBuilder -> wiringBuilder
-                .type(TypeRuntimeWiring.newTypeWiring("Rating", typeBuilder -> typeBuilder.enumValues
-                        (star -> Rating.fromCustomValue(star))
-                )).build();
-    }
-
 }
 

@@ -31,9 +31,9 @@ type Author {
 }
 
 enum Rating {
-    five
-    four
-    three
-    two
-    one
+    FIVE_STAR
+    FOUR_STAR
+    THREE_STAR
+    TWO_STAR
+    ONE_STAR
 }
