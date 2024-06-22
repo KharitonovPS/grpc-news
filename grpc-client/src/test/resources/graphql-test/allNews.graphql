@@ -1,0 +1,8 @@
+query {
+  findAll {
+    id
+    name
+    pageCount
+    rating
+  }
+}

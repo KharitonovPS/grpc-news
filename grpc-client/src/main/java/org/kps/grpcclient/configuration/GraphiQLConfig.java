@@ -1,12 +1,9 @@
 package org.kps.grpcclient.configuration;
 
-import graphql.schema.idl.TypeRuntimeWiring;
-import org.kps.grpcclient.service.Rating;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.graphql.execution.RuntimeWiringConfigurer;
 import org.springframework.graphql.server.webmvc.GraphiQlHandler;
 import org.springframework.web.servlet.function.RouterFunction;
 import org.springframework.web.servlet.function.RouterFunctions;

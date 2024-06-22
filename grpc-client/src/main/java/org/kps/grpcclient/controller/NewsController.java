@@ -25,7 +25,7 @@ public class NewsController {
     }
 
     @MutationMapping
-    //можно принимать много парамов и на каждый вешать @Argument
+    //можно принимать много парамов и на каждый вешать @Argument, но лучше дто
     public News addNews(@Argument NewsInput newsInput) {
         Author author = Author.getById(newsInput.authorId());
         var newNews = new News("newId", newsInput.name(), newsInput.pageCount(), newsInput.rating(), author.id());
@@ -47,8 +47,4 @@ public class NewsController {
         return Author.getById(news.authorId());
     }
 
-//    @SchemaMapping
-//    public Rating rating(News news){
-//        return
-//    }
 }
