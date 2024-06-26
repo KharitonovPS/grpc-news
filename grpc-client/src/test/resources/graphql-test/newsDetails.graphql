@@ -3,6 +3,7 @@ query newsDetails($id: ID) {
     id
     name
     pageCount
+    rating
     author {
       firstName
       lastName
