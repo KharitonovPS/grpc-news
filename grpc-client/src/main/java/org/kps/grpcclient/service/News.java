@@ -16,12 +16,21 @@ public record News(String id, String name, int pageCount, Rating rating, String 
 
     public static News create(News newNews) {
         NEWS.add(newNews);
-        System.out.println(newNews);
         return newNews;
     }
 
     public static List<News> findAll() {
         return NEWS;
+    }
+
+    public static void deleteAll(){
+        NEWS.clear();
+    }
+
+    public static void init(){
+        NEWS.add(new News("news-1", "Effective Java", 416, Rating.FIVE_STAR, "author-1"));
+        NEWS.add(new News("news-2", "Hitchhiker's Guide to the Galaxy", 208, Rating.THREE_STAR, "author-2"));
+        NEWS.add(new News("news-3", "Down Under", 436, Rating.FOUR_STAR, "author-3"));
     }
 
     public static News updateNews(String id, String name, int page, Rating rating, String authorId) {

@@ -1,0 +1,12 @@
+mutation addNews($newsInput: NewsInput) {
+  addNews(newsInput: $newsInput) {
+    id
+    name
+    pageCount
+    rating
+    author {
+      firstName
+      lastName
+    }
+  }
+}

@@ -1,0 +1,12 @@
+mutation update($id: ID, $newsInput: NewsInput) {
+  updateNews(id: $id, newsInput: $newsInput) {
+    id
+    name
+    pageCount
+    rating
+    author {
+      firstName
+      lastName
+    }
+  }
+}
