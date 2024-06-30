@@ -1,13 +1,6 @@
 syntax = "proto3";
 package org.kps.grpc;
 //билдим проект, после чего получаем классы в generated для наследования
-message TaskRequest{
-  optional string dev = 1;
-  repeated string task = 2;
-}
-message TaskResponse{
-  string task = 1 ;
-}
 
 message NewsBaseRequest {
   string  id = 1;
@@ -55,11 +48,6 @@ message Author {
   string id = 1;
  optional string firstName = 2;
   optional string  lastName = 3;
-}
-
-
-service TasksService {
-  rpc addTasks(TaskRequest) returns (TaskResponse);
 }
 
 service NewsService{

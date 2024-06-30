@@ -1,5 +1,7 @@
 package org.kps.grpcclient.controller;
 
+import lombok.RequiredArgsConstructor;
+import org.kps.grpcclient.client.NewsClient;
 import org.kps.grpcclient.service.Author;
 import org.kps.grpcclient.service.News;
 import org.kps.grpcclient.service.NewsInput;
@@ -13,11 +15,14 @@ import java.util.List;
 
 
 @Controller
+@RequiredArgsConstructor
 public class NewsController {
 
+    private final NewsClient client;
+
     @QueryMapping
-    public News newsById(@Argument String id) {
-        return News.getById(id);
+    public News newsByName(@Argument String name) {
+        return client.findNewsByName(name);
     }
 
     @QueryMapping
