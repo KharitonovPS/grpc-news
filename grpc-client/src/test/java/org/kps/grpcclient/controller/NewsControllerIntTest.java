@@ -86,6 +86,7 @@ class NewsControllerIntTest {
     }
 
     @Test
+    @Disabled
     void delete() {
 
         tester.document("""

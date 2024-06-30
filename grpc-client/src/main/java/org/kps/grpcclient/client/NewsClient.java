@@ -20,6 +20,8 @@ public class NewsClient {
         blockingStub = NewsServiceGrpc.newBlockingStub(managedChannel);
     }
 
+//    NewsServiceGrpc.NewsServiceOuterClass.
+
 
 
 
