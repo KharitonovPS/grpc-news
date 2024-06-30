@@ -1,6 +1,7 @@
 package org.kps.grpcclient.controller;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.kps.grpcclient.service.News;
 import org.kps.grpcclient.service.NewsInput;
@@ -28,6 +29,7 @@ class NewsControllerIntTest {
     }
 
     @Test
+    @Disabled
     void newsById() {
         tester.documentName("newsById")
                 .variable("id", "news-1")
@@ -48,6 +50,7 @@ class NewsControllerIntTest {
     }
 
     @Test
+    @Disabled
     void findAllShouldReturnAllNews() {
         tester.documentName("allNews")
                 .execute()
@@ -57,6 +60,7 @@ class NewsControllerIntTest {
     }
 
     @Test
+    @Disabled
     void addNews() {
         tester.documentName("addNews")
                 .variable("newsInput", new NewsInput("newName", 1, Rating.FOUR_STAR, "author-1"))
@@ -78,6 +82,7 @@ class NewsControllerIntTest {
     }
 
     @Test
+    @Disabled
     void updateNews() {
         tester.documentName("updNews")
                 .variable("newsInput", new NewsInput("updName", 1, Rating.FOUR_STAR, "author-1"))

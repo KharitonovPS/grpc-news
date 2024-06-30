@@ -9,11 +9,50 @@ message TaskRequest{
 
 }
 message TaskResponse{
-
   string task = 1 ;
-
 }
+
+message NewsRequest {
+  string  id = 1;
+  string name = 2;
+  int32  pageCount = 3 ;
+  Rating rating = 4;
+  Author author = 5;
+}
+
+message NewsResponse{
+    string  id = 1;
+    string name = 2;
+    int32  pageCount = 3 ;
+    Rating rating = 4;
+    Author author = 5;
+}
+
+enum Rating {
+  FIVE_STAR = 0;
+  FOUR_STAR = 1;
+  THREE_STAR = 2;
+  TWO_STAR = 3;
+  ONE_STAR = 4;
+}
+
+message Author {
+  string id = 1;
+  string firstName = 2;
+  string  lastName = 3;
+}
+
 
 service TasksService {
   rpc addTasks(TaskRequest) returns (TaskResponse);
+}
+
+service NewsService{
+  rpc findNewsById(NewsRequest) returns (NewsResponse);
+  // add paging here
+  rpc findAll(NewsRequest) returns (NewsResponse);
+
+  rpc addNews(NewsRequest) returns (NewsResponse);
+  rpc updateNews(NewsRequest) returns (NewsResponse);
+  rpc deleteNewsById(NewsRequest) returns (NewsResponse);
 }

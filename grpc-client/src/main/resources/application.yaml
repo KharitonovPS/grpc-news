@@ -13,3 +13,8 @@ logging:
     org.springframework:
       graphql: debug
       web: debug
+
+grpc:
+  host: localhost
+  port: 8079
+  is-async: false
