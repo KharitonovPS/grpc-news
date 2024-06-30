@@ -1,19 +1,61 @@
 syntax = "proto3";
 package org.kps.grpc;
 //билдим проект, после чего получаем классы в generated для наследования
-message TaskRequest{
 
-  optional string dev = 1;
-
-  repeated string task = 2;
-
-}
-message TaskResponse{
-
-  string task = 1 ;
-
+message NewsBaseRequest {
+  string  id = 1;
+  optional  string name = 2;
+  optional int32  pageCount = 3 ;
+  optional Rating rating = 4;
+  optional Author author = 5;
 }
 
-service TasksService {
-  rpc addTasks(TaskRequest) returns (stream TaskResponse);
+message NewsInputRequest{
+  string name = 1;
+  optional int32  pageCount = 2 ;
+  optional Rating rating = 3;
+  optional Author author = 4;
+}
+
+message NewsSelectByNameRequest{
+  string name = 1;
+}
+
+message FindAllNewsResponse{
+  repeated NewsBaseRequest summary = 6;
+}
+
+message Empty{
+}
+
+message NewsResponse{
+  string  id = 1;
+  optional string name = 2;
+  optional int32  pageCount = 3 ;
+  optional Rating rating = 4;
+  optional Author author = 5;
+}
+
+enum Rating {
+  ONE_STAR = 0;
+  TWO_STAR = 1;
+  THREE_STAR = 2;
+  FOUR_STAR = 3;
+  FIVE_STAR = 4;
+}
+
+message Author {
+  string id = 1;
+  optional string firstName = 2;
+  optional string  lastName = 3;
+}
+
+service NewsService{
+  rpc findNewsByName(NewsSelectByNameRequest) returns (NewsResponse);
+  // add paging here
+  rpc findAll(Empty) returns (FindAllNewsResponse);
+
+  rpc addNews(NewsInputRequest) returns (NewsResponse);
+  rpc updateNews(NewsBaseRequest) returns (NewsResponse);
+  rpc deleteNewsById(NewsSelectByNameRequest) returns (NewsResponse);
 }

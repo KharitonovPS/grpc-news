@@ -1,10 +1,6 @@
 package org.kps.grpcserver;
 
-import io.grpc.Server;
-import io.grpc.ServerBuilder;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.kps.grpcserver.service.TaskServiceImpl;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

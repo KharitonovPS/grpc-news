@@ -7,4 +7,5 @@ pluginManagement {
 rootProject.name = 'common-grpc'
 include 'grpc-server'
 include 'grpc-client'
+include 'grpc-model'
 

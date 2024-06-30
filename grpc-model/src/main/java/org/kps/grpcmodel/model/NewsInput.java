@@ -1,5 +1,8 @@
-package org.kps.grpcclient.service;
+package org.kps.grpcmodel.model;
 
+import lombok.Builder;
+
+@Builder
 public record NewsInput(
         String name,
         int pageCount,

@@ -1,4 +1,5 @@
 dependencies {
+    implementation project(':grpc-model')
     implementation 'org.springframework.boot:spring-boot-starter-graphql'
     implementation 'org.springframework.boot:spring-boot-starter-web'
 
