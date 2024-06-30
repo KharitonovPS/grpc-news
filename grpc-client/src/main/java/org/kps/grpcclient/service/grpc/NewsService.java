@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class NewsService  {
 
-    private final ManagedChannel managedChannel;
 
 
 }
