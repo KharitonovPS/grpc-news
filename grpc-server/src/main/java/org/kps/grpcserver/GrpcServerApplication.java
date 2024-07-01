@@ -12,14 +12,6 @@ public class GrpcServerApplication {
 
     public static void main(String[] args) throws IOException, InterruptedException {
         SpringApplication.run(GrpcServerApplication.class, args);
-//        Server server = ServerBuilder.forPort(8080)
-//                .addService(new TaskServiceImpl() )
-//                .build();
-//
-//        server.start();
-//        log.info("Server started...");
-//
-//        server.awaitTermination();
     }
 
 }

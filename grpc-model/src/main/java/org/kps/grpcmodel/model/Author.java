@@ -1,6 +1,5 @@
 package org.kps.grpcmodel.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 
 @Builder

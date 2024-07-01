@@ -1,5 +1,5 @@
 type Query {
-    newsById(id: ID): News
+    newsByName(name: String): News
     findAll: [News]!
 }
 
