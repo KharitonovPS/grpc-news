@@ -5,8 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.kps.grpc.NewsServiceGrpc;
 import org.kps.grpc.TaskService;
-import org.kps.grpcmodel.model.News;
-import org.kps.grpcmodel.model.Rating;
+import org.kps.grpcserver.mapper.NewsResponseMapper;
 import org.kps.grpcserver.repository.NewsRepository;
 import org.springframework.stereotype.Service;
 
@@ -16,28 +15,25 @@ import org.springframework.stereotype.Service;
 public class NewsServiceImpl extends NewsServiceGrpc.NewsServiceImplBase {
 
     private final NewsRepository newsRepository;
+    private final NewsResponseMapper newsResponseMapper;
 
     @Override
     public void findNewsByName(TaskService.NewsSelectByNameRequest request, StreamObserver<TaskService.NewsResponse> responseObserver) {
-        var check = newsRepository.check(request.getName());
-        var response = TaskService.NewsResponse
-                .newBuilder()
-                .setRating(TaskService.Rating.valueOf(check.rating().toString()))
-                .setName(check.name())
-                .setId(check.id())
-                .setAuthor(TaskService.Author.newBuilder()
-                        .setFirstName(check.authorId())
-                        .setLastName(check.authorId())
-                        .setId(check.authorId())
-                        .build())
-                .build();
+        var news = newsRepository.findByName(request.getName());
+        var response = newsResponseMapper.toNewsResponse(news);
         responseObserver.onNext(response);
         responseObserver.onCompleted();
     }
 
     @Override
     public void findAll(TaskService.Empty request, StreamObserver<TaskService.FindAllNewsResponse> responseObserver) {
-        super.findAll(request, responseObserver);
+        var newsList = newsRepository.findAll();
+        var responses = newsList.stream().map(newsResponseMapper::toNewsResponse).toList();
+        responseObserver.onNext(TaskService.FindAllNewsResponse.newBuilder()
+                .addAllSummary(responses)
+                .build());
+        responseObserver.onCompleted();
+
     }
 
     @Override

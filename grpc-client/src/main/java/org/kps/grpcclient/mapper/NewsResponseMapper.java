@@ -1,8 +1,8 @@
 package org.kps.grpcclient.mapper;
 
 import org.kps.grpc.TaskService;
-import org.kps.grpcclient.service.News;
-import org.kps.grpcclient.service.Rating;
+import org.kps.grpcmodel.model.News;
+import org.kps.grpcmodel.model.Rating;
 import org.springframework.stereotype.Component;
 
 @Component

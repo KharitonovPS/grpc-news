@@ -3,8 +3,8 @@ package org.kps.grpcclient.controller;
 import lombok.RequiredArgsConstructor;
 import org.kps.grpcclient.client.NewsClient;
 import org.kps.grpcclient.service.Author;
-import org.kps.grpcclient.service.News;
 import org.kps.grpcclient.service.NewsInput;
+import org.kps.grpcmodel.model.News;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
@@ -27,26 +27,26 @@ public class NewsController {
 
     @QueryMapping
     public List<News> findAll() {
-        return News.findAll();
+        return client.findAll();
     }
 
-    @MutationMapping
-    //можно принимать много парамов и на каждый вешать @Argument, но лучше дто
-    public News addNews(@Argument NewsInput newsInput) {
-        Author author = Author.getById(newsInput.authorId());
-        var newNews = new News("newId", newsInput.name(), newsInput.pageCount(), newsInput.rating(), author.id());
-        return News.create(newNews);
-    }
-
-    @MutationMapping
-    public News updateNews(@Argument String id, @Argument NewsInput newsInput) {
-        return News.updateNews(id, newsInput.name(), newsInput.pageCount(), newsInput.rating(), newsInput.authorId());
-    }
-
-    @MutationMapping
-    public News delete(@Argument String id) {
-        return News.deleteById(id);
-    }
+//    @MutationMapping
+//    //можно принимать много парамов и на каждый вешать @Argument, но лучше дто
+//    public News addNews(@Argument NewsInput newsInput) {
+//        Author author = Author.getById(newsInput.authorId());
+//        var newNews = new News("newId", newsInput.name(), newsInput.pageCount(), newsInput.rating(), author.id());
+//        return News.create(newNews);
+//    }
+//
+//    @MutationMapping
+//    public News updateNews(@Argument String id, @Argument NewsInput newsInput) {
+//        return News.updateNews(id, newsInput.name(), newsInput.pageCount(), newsInput.rating(), newsInput.authorId());
+//    }
+//
+//    @MutationMapping
+//    public News delete(@Argument String id) {
+//        return News.deleteById(id);
+//    }
 
     @SchemaMapping
     public Author author(News news) {

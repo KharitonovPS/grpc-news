@@ -1,4 +1,8 @@
 dependencies {
     implementation project(':grpc-model')
 
+    implementation 'org.postgresql:postgresql:42.7.3'
+    implementation 'org.jooq:jooq:3.16.4'
+    implementation 'org.jooq:jooq-meta:3.16.4'
+    implementation 'org.jooq:jooq-codegen:3.16.4'
 }

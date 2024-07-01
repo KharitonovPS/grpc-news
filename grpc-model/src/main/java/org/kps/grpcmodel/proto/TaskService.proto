@@ -21,10 +21,6 @@ message NewsSelectByNameRequest{
   string name = 1;
 }
 
-message FindAllNewsResponse{
-  repeated NewsBaseRequest summary = 6;
-}
-
 message Empty{
 }
 
@@ -34,6 +30,10 @@ message NewsResponse{
   optional int32  pageCount = 3 ;
   optional Rating rating = 4;
   optional Author author = 5;
+}
+
+message FindAllNewsResponse{
+  repeated NewsResponse summary = 6;
 }
 
 enum Rating {

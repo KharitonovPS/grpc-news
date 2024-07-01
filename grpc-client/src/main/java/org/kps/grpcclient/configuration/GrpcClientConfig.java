@@ -28,16 +28,4 @@ public class GrpcClientConfig {
         managedChannel.shutdownNow();
     }
 
-
-//    TasksServiceGrpc.TasksServiceBlockingStub blockingStub = TasksServiceGrpc.newBlockingStub(channel);
-//
-//        TaskService.TaskRequest request = TaskService.TaskRequest.newBuilder()
-//                .addAllTask(List.of("CREW-01","CARGO-02"))
-//                .setDev("Polly")
-//                .build();
-//
-//        TaskService.TaskResponse taskResponse = blockingStub.addTasks(request);
-//        log.info("Take response, {}", taskResponse);
-//
-//        channel.shutdownNow();
 }

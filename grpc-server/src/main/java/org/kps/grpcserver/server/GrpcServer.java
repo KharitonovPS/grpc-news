@@ -2,8 +2,10 @@ package org.kps.grpcserver.server;
 
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
+import jakarta.annotation.PreDestroy;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.kps.grpcserver.configuration.props.GrpcServerProperties;
 import org.kps.grpcserver.service.NewsServiceImpl;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
@@ -17,17 +19,23 @@ import java.io.IOException;
 public class GrpcServer {
 
     private final NewsServiceImpl newsService;
+    private final GrpcServerProperties grpcServerProperties;
+    private Server server;
 
     @EventListener(ApplicationReadyEvent.class)
     private void startUp() throws IOException, InterruptedException {
-        Server server = ServerBuilder.forPort(8079)
+        server = ServerBuilder.forPort(grpcServerProperties.port())
                 .addService(newsService)
                 .build();
-
         server.start();
         log.info("Server started...");
 
         server.awaitTermination();
+    }
+
+    @PreDestroy
+    private void shutDown() {
+        server.shutdownNow();
     }
 
 }
