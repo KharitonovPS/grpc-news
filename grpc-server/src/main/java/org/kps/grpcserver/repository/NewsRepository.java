@@ -1,7 +1,7 @@
 package org.kps.grpcserver.repository;
 
 import lombok.extern.slf4j.Slf4j;
-import org.kps.grpcmodel.model.News;
+import org.kps.grpcmodel.model.NewsDto;
 import org.kps.grpcmodel.model.Rating;
 import org.springframework.stereotype.Component;
 
@@ -11,17 +11,17 @@ import java.util.List;
 @Component
 public class NewsRepository {
 
-    public News findByName(String name) {
+    public NewsDto findByName(String name) {
         log.info("find by name {}...", name);
-        return new News("1", name, 123, Rating.FIVE_STAR, "a1");
+        return new NewsDto("1", name, 123, Rating.FIVE_STAR, "a1");
 
     }
 
-    public List<News> findAll() {
+    public List<NewsDto> findAll() {
         log.info("find all news...");
 
-        return List.of(new News("1", "name1", 123, Rating.FIVE_STAR, "a1"),
-                new News("2", "name2", 124, Rating.FOUR_STAR, "a2"));
+        return List.of(new NewsDto("1", "name1", 123, Rating.FIVE_STAR, "a1"),
+                new NewsDto("2", "name2", 124, Rating.FOUR_STAR, "a2"));
     }
 
 }

@@ -59,3 +59,7 @@ service NewsService{
   rpc updateNews(NewsBaseRequest) returns (NewsResponse);
   rpc deleteNewsById(NewsSelectByNameRequest) returns (NewsResponse);
 }
+
+service AuthorService{
+  rpc findAuthor (NewsSelectByNameRequest) returns (Author);
+}

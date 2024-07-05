@@ -1,6 +1,9 @@
-package org.kps.grpcclient.service;
+package org.kps.grpcmodel.model;
 
-public record NewsInput(
+import lombok.Builder;
+
+@Builder
+public record NewsInputDto(
         String name,
         int pageCount,
         Rating rating,
