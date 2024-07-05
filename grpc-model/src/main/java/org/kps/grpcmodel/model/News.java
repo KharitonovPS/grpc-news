@@ -9,6 +9,6 @@ public record News (
         String name,
         int pageCount,
         Rating rating,
-        String authorId
+        Long authorId
 ){
 }

@@ -45,10 +45,16 @@ enum Rating {
 }
 
 message Author {
-  string id = 1;
+  int64 id = 1;
   optional string firstName = 2;
   optional string  lastName = 3;
 }
+
+message AuthorRequest {
+  int64 id = 1;
+}
+
+
 
 service NewsService{
   rpc findNewsByName(NewsSelectByNameRequest) returns (NewsResponse);
@@ -58,4 +64,8 @@ service NewsService{
   rpc addNews(NewsInputRequest) returns (NewsResponse);
   rpc updateNews(NewsBaseRequest) returns (NewsResponse);
   rpc deleteNewsById(NewsSelectByNameRequest) returns (NewsResponse);
+}
+
+service AuthorService{
+  rpc findAuthor(AuthorRequest) returns (Author);
 }

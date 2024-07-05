@@ -13,15 +13,15 @@ public class NewsRepository {
 
     public News findByName(String name) {
         log.info("find by name {}...", name);
-        return new News("1", name, 123, Rating.FIVE_STAR, "a1");
+        return new News("1", name, 123, Rating.FIVE_STAR, 1L);
 
     }
 
     public List<News> findAll() {
         log.info("find all news...");
 
-        return List.of(new News("1", "name1", 123, Rating.FIVE_STAR, "a1"),
-                new News("2", "name2", 124, Rating.FOUR_STAR, "a2"));
+        return List.of(new News("1", "name1", 123, Rating.FIVE_STAR, 1L),
+                new News("2", "name2", 124, Rating.FOUR_STAR, 2L));
     }
 
 }

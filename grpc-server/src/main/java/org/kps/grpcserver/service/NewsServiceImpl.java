@@ -20,7 +20,9 @@ public class NewsServiceImpl extends NewsServiceGrpc.NewsServiceImplBase {
     @Override
     public void findNewsByName(TaskService.NewsSelectByNameRequest request, StreamObserver<TaskService.NewsResponse> responseObserver) {
         var news = newsRepository.findByName(request.getName());
+//        news.builder().authorId()
         var response = newsResponseMapper.toNewsResponse(news);
+
         responseObserver.onNext(response);
         responseObserver.onCompleted();
     }

@@ -4,7 +4,7 @@ import lombok.Builder;
 
 @Builder
 public record Author(
-        String id,
+        Long id,
         String firstName,
         String lastName
 ) {

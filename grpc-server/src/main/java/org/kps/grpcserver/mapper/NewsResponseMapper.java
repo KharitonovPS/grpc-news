@@ -14,8 +14,6 @@ public class NewsResponseMapper {
                 .setName(news.name())
                 .setId(news.id())
                 .setAuthor(TaskService.Author.newBuilder()
-                        .setFirstName(news.authorId())
-                        .setLastName(news.authorId())
                         .setId(news.authorId())
                         .build())
                 .build();
