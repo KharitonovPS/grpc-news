@@ -1,12 +1,14 @@
 package org.kps.grpcmodel.model;
 
+
 import lombok.Builder;
 
 @Builder
-public record NewsInput(
+public record NewsDto(
+        String id,
         String name,
         int pageCount,
         Rating rating,
-        String authorId
-) {
+        Long authorId
+){
 }
