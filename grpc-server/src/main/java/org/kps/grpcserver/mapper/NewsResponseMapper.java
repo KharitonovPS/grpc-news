@@ -1,13 +1,13 @@
 package org.kps.grpcserver.mapper;
 
 import org.kps.grpc.TaskService;
-import org.kps.grpcmodel.model.NewsDto;
+import org.kps.grpcmodel.model.News;
 import org.springframework.stereotype.Component;
 
 @Component
 public class NewsResponseMapper {
 
-    public TaskService.NewsResponse toNewsResponse(NewsDto news) {
+    public TaskService.NewsResponse toNewsResponse(News news) {
         return TaskService.NewsResponse
                 .newBuilder()
                 .setRating(TaskService.Rating.valueOf(news.rating().toString()))

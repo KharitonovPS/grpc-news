@@ -1,11 +1,11 @@
 type Query {
-    newsByName(name: String): News
+    newsByName(name: String!): News
     findAll: [News]!
     authorById(id: ID): Author
 }
 
 type Mutation {
-    addNews(newsInput: NewsInput): News
+    addNews(newsInput: NewsInput!): News!
     updateNews(id: ID, newsInput: NewsInput) : News
     delete(id: ID): News
 }

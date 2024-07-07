@@ -4,7 +4,7 @@ package org.kps.grpcmodel.model;
 import lombok.Builder;
 
 @Builder
-public record NewsDto(
+public record News(
         String id,
         String name,
         int pageCount,

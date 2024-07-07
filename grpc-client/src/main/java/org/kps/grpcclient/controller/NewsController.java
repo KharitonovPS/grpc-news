@@ -8,6 +8,7 @@ import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.stereotype.Controller;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 
 @Controller
@@ -17,12 +18,12 @@ public class NewsController {
     private final NewsClient client;
 
     @QueryMapping
-    public News newsByName(@Argument String name) {
+    public CompletableFuture<News> newsByName(@Argument String name) {
         return client.findNewsByName(name);
     }
 
     @QueryMapping
-    public List<News> findAll() {
+    public  List<News> findAll() {
         return client.findAll();
     }
 

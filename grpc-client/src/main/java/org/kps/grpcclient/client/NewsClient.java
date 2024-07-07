@@ -19,8 +19,8 @@ import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicReference;
 
 @Slf4j
 @Service
@@ -34,21 +34,23 @@ public class NewsClient {
 
     @EventListener(ApplicationReadyEvent.class)
     private void initialize() {
-        futureStub = NewsServiceGrpc.newFutureStub(managedChannel)
-                .withDeadline(Deadline.after(2000L, TimeUnit.MILLISECONDS));
+        futureStub = NewsServiceGrpc.newFutureStub(managedChannel);
+//                .withDeadline(Deadline.after(4000L, TimeUnit.MILLISECONDS));
     }
 
-    public News findNewsByName(String name) {
+    public CompletableFuture<News> findNewsByName(String name) {
         TaskService.NewsSelectByNameRequest request = TaskService.NewsSelectByNameRequest.newBuilder()
                 .setName(name)
                 .build();
-        ListenableFuture<TaskService.NewsResponse> listenableFuture = futureStub.findNewsByName(request);
+        ListenableFuture<TaskService.NewsResponse> listenableFuture = futureStub
+                .withDeadline(Deadline.after(4000L, TimeUnit.MILLISECONDS))
+                .findNewsByName(request);
+        CompletableFuture<TaskService.NewsResponse> completableFuture = new CompletableFuture<>();
 
-        AtomicReference<TaskService.NewsResponse> holder = new AtomicReference<>();
         Futures.addCallback(listenableFuture, new FutureCallback<TaskService.NewsResponse>() {
             @Override
             public void onSuccess(@Nullable TaskService.NewsResponse result) {
-                holder.set(result);
+                completableFuture.complete(result);
             }
 
             @Override
@@ -58,11 +60,12 @@ public class NewsClient {
                     log.warn("Request timed out");
                 } else {
                     log.error("Request failed %s".formatted(t.getMessage()), t);
+                    completableFuture.completeExceptionally(t);
                 }
             }
         }, new VirtualThreadTaskExecutor(futureStub.getClass() + "-newsClient"));
 
-        return mapper.toNews(holder.get());
+        return completableFuture.thenApply(mapper::toNews);
     }
 
 
