@@ -5,10 +5,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.kps.grpc.AuthorServiceGrpc;
 import org.kps.grpc.TaskService;
-import org.kps.grpcmodel.model.Author;
 import org.kps.grpcserver.author.entity.AuthorEntity;
 import org.kps.grpcserver.author.mapper.AuthorResponseMapper;
-import org.kps.grpcserver.author.repository.AuthorRepository;
 import org.springframework.stereotype.Service;
 
 @Slf4j

@@ -1,7 +1,6 @@
 package org.kps.grpcserver.author.mapper;
 
 import org.kps.grpc.TaskService;
-import org.kps.grpcmodel.model.Author;
 import org.kps.grpcserver.author.entity.AuthorEntity;
 import org.springframework.stereotype.Component;
 

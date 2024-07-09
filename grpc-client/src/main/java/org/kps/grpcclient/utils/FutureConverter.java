@@ -13,6 +13,8 @@ import java.util.concurrent.CompletableFuture;
 @Slf4j
 public class FutureConverter {
 
+    private FutureConverter() {}
+
     private static final VirtualThreadTaskExecutor TASK_EXECUTOR = new VirtualThreadTaskExecutor(
             FutureConverter.class.getName() + "-pool");
 
