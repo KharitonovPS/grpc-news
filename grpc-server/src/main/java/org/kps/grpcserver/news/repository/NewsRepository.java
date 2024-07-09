@@ -14,7 +14,7 @@ public class NewsRepository {
 
     public NewsEntity findByName(String name) {
         log.info("find by name {}...", name);
-        return new NewsEntity(name, 123, Rating.FIVE_STAR, new AuthorEntity("test", "testov"));
+        return generateStub(name);
 
     }
 
@@ -22,9 +22,23 @@ public class NewsRepository {
         log.info("find all news...");
 
         return List.of(
-                new NewsEntity("name1", 123, Rating.FIVE_STAR, new AuthorEntity("ivan", "ivanov")),
-                new NewsEntity("name2", 124, Rating.FOUR_STAR, new AuthorEntity("ivan2", "ivanov2"))
+                generateStub("name1"),
+                generateStub("name2"),
+                generateStub("name3")
         );
+    }
+
+    private NewsEntity generateStub(String name) {
+        return NewsEntity.builder()
+                .rating(Rating.FIVE_STAR)
+                .id(1L)
+                .pageCount(123)
+                .name(name)
+                .author(AuthorEntity.builder()
+                                .lastName("whatever")
+                                .firstName("whatever")
+                                .id(1L).build())
+                .build();
     }
 
 }

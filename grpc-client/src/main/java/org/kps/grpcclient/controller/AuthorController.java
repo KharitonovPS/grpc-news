@@ -15,6 +15,8 @@ public class AuthorController {
 
     private final AuthorClient authorClient;
 
+
+    // тут у нас никак не связаны сущности, автор тянется 2 запросом
     @SchemaMapping
     public Author author(News news){
         return authorClient.findById(news.authorId());

@@ -5,7 +5,7 @@ import lombok.Builder;
 
 @Builder
 public record News(
-        String id,
+        long id,
         String name,
         int pageCount,
         Rating rating,

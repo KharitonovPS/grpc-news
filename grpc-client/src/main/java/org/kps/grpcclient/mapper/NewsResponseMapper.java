@@ -14,19 +14,18 @@ import java.util.Objects;
 public class NewsResponseMapper {
 
     public News toNews(TaskService.NewsResponse response) {
-        if (Objects.isNull(response)){
-           log.warn("response is null");
+        if (Objects.isNull(response)) {
+            log.warn("response is null");
             return null;
         }
         Descriptors.FieldDescriptor idField = response.getDescriptorForType().findFieldByName("id");
         return News.builder()
-                 .id(response.hasField(idField) ? response.getId() : null)
-                 .name(response.hasName() ? response.getName() : null)
-                 .pageCount(response.hasPageCount() ? response.getPageCount() : 0)
-                 .authorId(response.hasAuthor() ? response.getAuthor().getId() : null)
+                .id(response.hasField(idField) ? response.getId() : 0)
+                .name(response.hasName() ? response.getName() : null)
+                .pageCount(response.hasPageCount() ? response.getPageCount() : 0)
+                .authorId(response.hasAuthor() ? response.getAuthor().getId() : null)
                 .rating(response.hasRating() ? Rating.valueOf(response.getRating().name()) : null)
-
-                         .build();
+                .build();
 
     }
 }

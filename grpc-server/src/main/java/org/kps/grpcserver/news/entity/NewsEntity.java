@@ -1,17 +1,17 @@
 package org.kps.grpcserver.news.entity;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 import org.kps.grpcmodel.model.Rating;
 import org.kps.grpcserver.author.entity.AuthorEntity;
 import org.kps.grpcserver.common.BaseEntity;
 
 @Data
-@AllArgsConstructor
+@SuperBuilder
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = true)
 public class NewsEntity extends BaseEntity {
 
     private String name;

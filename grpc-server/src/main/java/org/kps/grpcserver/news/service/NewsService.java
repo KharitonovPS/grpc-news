@@ -5,6 +5,9 @@ import org.kps.grpcserver.news.entity.NewsEntity;
 import org.kps.grpcserver.news.repository.NewsRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class NewsService {
@@ -14,5 +17,9 @@ public class NewsService {
 
     public NewsEntity findByName(String name) {
         return newsRepository.findByName(name);
+    }
+
+    public List<NewsEntity> findAll() {
+        return newsRepository.findAll();
     }
 }
