@@ -1,25 +1,24 @@
-package org.kps.grpcserver.service;
+package org.kps.grpcserver.news.service;
 
 import io.grpc.stub.StreamObserver;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.kps.grpc.NewsServiceGrpc;
 import org.kps.grpc.TaskService;
-import org.kps.grpcserver.mapper.NewsResponseMapper;
-import org.kps.grpcserver.repository.NewsRepository;
+import org.kps.grpcserver.news.mapper.NewsResponseMapper;
 import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class NewsServiceImpl extends NewsServiceGrpc.NewsServiceImplBase {
+public class NewsCompositeService extends NewsServiceGrpc.NewsServiceImplBase {
 
-    private final NewsRepository newsRepository;
+    private final NewsService newsService;
     private final NewsResponseMapper newsResponseMapper;
 
     @Override
     public void findNewsByName(TaskService.NewsSelectByNameRequest request, StreamObserver<TaskService.NewsResponse> responseObserver) {
-        var news = newsRepository.findByName(request.getName());
+        var news = newsService.findByName(request.getName());
 //        news.builder().authorId()
         var response = newsResponseMapper.toNewsResponse(news);
 
@@ -29,7 +28,7 @@ public class NewsServiceImpl extends NewsServiceGrpc.NewsServiceImplBase {
 
     @Override
     public void findAll(TaskService.Empty request, StreamObserver<TaskService.FindAllNewsResponse> responseObserver) {
-        var newsList = newsRepository.findAll();
+        var newsList = newsService.findAll();
         var responses = newsList.stream().map(newsResponseMapper::toNewsResponse).toList();
         responseObserver.onNext(TaskService.FindAllNewsResponse.newBuilder()
                 .addAllSummary(responses)

@@ -1,4 +1,4 @@
-package org.kps.grpcserver.repository;
+package org.kps.grpcserver.author.repository;
 
 import org.kps.grpcmodel.model.Author;
 import org.springframework.stereotype.Component;

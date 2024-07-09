@@ -1,4 +1,4 @@
-import org.kps.grpcmodel.model.Rating;
+package org.kps.grpcmodel.model;
 
 public record NewsInput(
         String name,

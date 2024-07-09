@@ -1,4 +1,4 @@
-package org.kps.grpcserver.service;
+package org.kps.grpcserver.author.service;
 
 import io.grpc.stub.StreamObserver;
 import lombok.RequiredArgsConstructor;
@@ -6,14 +6,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.kps.grpc.AuthorServiceGrpc;
 import org.kps.grpc.TaskService;
 import org.kps.grpcmodel.model.Author;
-import org.kps.grpcserver.mapper.AuthorResponseMapper;
-import org.kps.grpcserver.repository.AuthorRepository;
+import org.kps.grpcserver.author.mapper.AuthorResponseMapper;
+import org.kps.grpcserver.author.repository.AuthorRepository;
 import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class AuthorServiceImpl extends AuthorServiceGrpc.AuthorServiceImplBase {
+public class AuthorCompositeService extends AuthorServiceGrpc.AuthorServiceImplBase {
 
     private final AuthorRepository repository;
     private final AuthorResponseMapper mapper;

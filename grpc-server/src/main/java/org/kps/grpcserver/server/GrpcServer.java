@@ -6,8 +6,8 @@ import jakarta.annotation.PreDestroy;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.kps.grpcserver.configuration.props.GrpcServerProperties;
-import org.kps.grpcserver.service.AuthorServiceImpl;
-import org.kps.grpcserver.service.NewsServiceImpl;
+import org.kps.grpcserver.author.service.AuthorCompositeService;
+import org.kps.grpcserver.news.service.NewsCompositeService;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
@@ -19,8 +19,8 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class GrpcServer {
 
-    private final NewsServiceImpl newsService;
-    private final AuthorServiceImpl authorService;
+    private final NewsCompositeService newsService;
+    private final AuthorCompositeService authorService;
     private final GrpcServerProperties grpcServerProperties;
     private Server server;
 

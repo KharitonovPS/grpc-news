@@ -1,4 +1,4 @@
-package org.kps.grpcserver.mapper;
+package org.kps.grpcserver.author.mapper;
 
 import org.kps.grpc.TaskService;
 import org.kps.grpcmodel.model.Author;
