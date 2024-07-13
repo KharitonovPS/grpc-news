@@ -2,15 +2,17 @@ package org.kps.grpcserver.news.repository;
 
 import lombok.extern.slf4j.Slf4j;
 import org.kps.grpcmodel.model.Rating;
-import org.kps.grpcserver.author.entity.AuthorEntity;
 import org.kps.grpcserver.news.entity.NewsEntity;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Random;
 
 @Slf4j
 @Component
 public class NewsRepository {
+    private Random random = new Random();
+
 
     public NewsEntity findByName(String name) {
         log.info("find by name {}...", name);
@@ -34,10 +36,7 @@ public class NewsRepository {
                 .id(1L)
                 .pageCount(123)
                 .name(name)
-                .author(AuthorEntity.builder()
-                                .lastName("whatever")
-                                .firstName("whatever")
-                                .id(1L).build())
+                .authorId(random.nextLong())
                 .build();
     }
 

@@ -29,7 +29,7 @@ message NewsResponse{
   optional string name = 2;
   optional int32  pageCount = 3 ;
   optional Rating rating = 4;
-  optional Author author = 5;
+  optional int64 authorId = 5;
 }
 
 message FindAllNewsResponse{

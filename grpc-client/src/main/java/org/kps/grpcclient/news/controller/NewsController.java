@@ -1,7 +1,7 @@
-package org.kps.grpcclient.controller;
+package org.kps.grpcclient.news.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.kps.grpcclient.client.NewsClient;
+import org.kps.grpcclient.news.client.NewsClient;
 import org.kps.grpcmodel.model.News;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
@@ -23,7 +23,7 @@ public class NewsController {
     }
 
     @QueryMapping
-    public  List<News> findAll() {
+    public CompletableFuture<List<News>> findAll() {
         return client.findAll();
     }
 

@@ -5,7 +5,6 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import org.kps.grpcmodel.model.Rating;
-import org.kps.grpcserver.author.entity.AuthorEntity;
 import org.kps.grpcserver.common.BaseEntity;
 
 @Data
@@ -17,6 +16,6 @@ public class NewsEntity extends BaseEntity {
     private String name;
     private int pageCount;
     private Rating rating;
-    private AuthorEntity author;
+    private long authorId;
 }
 

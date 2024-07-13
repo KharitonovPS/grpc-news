@@ -1,7 +1,7 @@
-package org.kps.grpcclient.controller;
+package org.kps.grpcclient.author.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.kps.grpcclient.client.AuthorClient;
+import org.kps.grpcclient.author.client.AuthorClient;
 import org.kps.grpcmodel.model.Author;
 import org.kps.grpcmodel.model.News;
 import org.springframework.graphql.data.method.annotation.Argument;
@@ -9,21 +9,22 @@ import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.graphql.data.method.annotation.SchemaMapping;
 import org.springframework.stereotype.Controller;
 
+import java.util.concurrent.CompletableFuture;
+
 @Controller
 @RequiredArgsConstructor
 public class AuthorController {
 
     private final AuthorClient authorClient;
 
-
-    // тут у нас никак не связаны сущности, автор тянется 2 запросом
+    // сущности связаны по id, автор тянется 2 запросом
     @SchemaMapping
-    public Author author(News news){
+    public CompletableFuture<Author> author(News news){
         return authorClient.findById(news.authorId());
     }
 
     @QueryMapping
-    public Author authorById(@Argument Long id) {
+    public CompletableFuture<Author> authorById(@Argument Long id) {
         return authorClient.findById(id);
     }
 }
