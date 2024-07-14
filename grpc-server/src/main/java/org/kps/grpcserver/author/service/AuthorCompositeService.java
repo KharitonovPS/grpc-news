@@ -9,6 +9,8 @@ import org.kps.grpcserver.author.entity.AuthorEntity;
 import org.kps.grpcserver.author.mapper.AuthorResponseMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -25,4 +27,11 @@ public class AuthorCompositeService extends AuthorServiceGrpc.AuthorServiceImplB
         responseObserver.onCompleted();
     }
 
+    @Override
+    public void findAuthors(TaskService.AuthorIdsRequest request, StreamObserver<TaskService.AuthorListResponse> responseObserver) {
+        List<AuthorEntity> authorsByIds = authorService.findAuthorsByIds(request.getIdList());
+        TaskService.AuthorListResponse authorListResponse = mapper.toAuthorListResponse(authorsByIds);
+        responseObserver.onNext(authorListResponse);
+        responseObserver.onCompleted();
     }
+}
