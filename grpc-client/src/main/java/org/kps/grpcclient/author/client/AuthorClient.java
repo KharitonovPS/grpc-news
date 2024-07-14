@@ -21,14 +21,8 @@ import java.util.concurrent.TimeUnit;
 @RequiredArgsConstructor
 public class AuthorClient {
 
-    private final ManagedChannel managedChannel;
     private final AuthorMapper mapper;
-    private AuthorServiceGrpc.AuthorServiceFutureStub futureStub;
-
-    @EventListener(ApplicationReadyEvent.class)
-    private void initialize() {
-        futureStub = AuthorServiceGrpc.newFutureStub(managedChannel);
-    }
+    private final AuthorServiceGrpc.AuthorServiceFutureStub futureStub;
 
     public CompletableFuture<Author> findById(Long id) {
         TaskService.AuthorRequest request = TaskService.AuthorRequest.newBuilder()

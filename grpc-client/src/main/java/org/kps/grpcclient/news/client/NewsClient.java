@@ -22,15 +22,8 @@ import java.util.concurrent.TimeUnit;
 @RequiredArgsConstructor
 public class NewsClient {
 
-    private final ManagedChannel managedChannel;
     private final NewsMapper mapper;
-    private NewsServiceGrpc.NewsServiceFutureStub futureStub;
-
-
-    @EventListener(ApplicationReadyEvent.class)
-    private void initialize() {
-        futureStub = NewsServiceGrpc.newFutureStub(managedChannel);
-    }
+    private final NewsServiceGrpc.NewsServiceFutureStub futureStub;
 
     public CompletableFuture<News> findNewsByName(String name) {
         TaskService.NewsSelectByNameRequest request = TaskService.NewsSelectByNameRequest.newBuilder()

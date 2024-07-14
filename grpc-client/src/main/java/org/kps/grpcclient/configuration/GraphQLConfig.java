@@ -10,7 +10,7 @@ import org.springframework.web.servlet.function.RouterFunctions;
 import org.springframework.web.servlet.function.ServerResponse;
 
 @Configuration
-public class GraphiQLConfig {
+public class GraphQLConfig {
 
     @Bean
     @Order(0)
@@ -23,4 +23,3 @@ public class GraphiQLConfig {
     }
 
 }
-

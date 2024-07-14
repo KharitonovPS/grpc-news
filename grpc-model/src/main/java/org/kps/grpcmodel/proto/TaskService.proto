@@ -54,6 +54,12 @@ message AuthorRequest {
   int64 id = 1;
 }
 
+message AuthorIdsRequest{
+  repeated int64 id = 1;
+}
+message AuthorListResponse{
+  repeated Author author = 1;
+}
 service NewsService{
   rpc findNewsByName(NewsSelectByNameRequest) returns (NewsResponse);
   // add paging here
@@ -66,4 +72,5 @@ service NewsService{
 
 service AuthorService{
   rpc findAuthor(AuthorRequest) returns (Author);
+  rpc findAuthors(AuthorIdsRequest) returns (AuthorListResponse);
 }
