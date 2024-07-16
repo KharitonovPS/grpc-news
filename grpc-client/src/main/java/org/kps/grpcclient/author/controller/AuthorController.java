@@ -40,13 +40,13 @@ public class AuthorController {
 
     @BatchMapping
 //    public Mono<Map<News, Author>> author(List<News> news) {
-    public Mono<Map<Long, Author>> author(List<News> news) {
+    public Mono<Map<News, Author>> author(List<News> news) {
         Set<Long> authorIds = news.stream()
                 .mapToLong(News::authorId)
                 .boxed()
                 .collect(Collectors.toUnmodifiableSet());
 
-        return  Mono.fromFuture(authorClient.findAuthorsByIds(authorIds));
+        return  Mono.fromFuture(authorClient.findAuthorsByIds(news,authorIds));
     }
 
 

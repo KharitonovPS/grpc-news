@@ -8,12 +8,15 @@ import org.kps.grpc.TaskService;
 import org.kps.grpcclient.author.mapper.AuthorMapper;
 import org.kps.grpcclient.utils.FutureConverter;
 import org.kps.grpcmodel.model.Author;
+import org.kps.grpcmodel.model.News;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -35,7 +38,7 @@ public class AuthorClient {
         return completableFuture.thenApply(mapper::toAuthor);
     }
 
-    public CompletableFuture<Map<Long, Author>> findAuthorsByIds(Set<Long> authorIds) {
+    public CompletableFuture<Map<News, Author>> findAuthorsByIds(List<News> newsList, Set<Long> authorIds) {
         TaskService.AuthorIdsRequest request = TaskService.AuthorIdsRequest.newBuilder()
                 .addAllId(authorIds).build();
 
@@ -43,9 +46,14 @@ public class AuthorClient {
                 4000L,
                 TimeUnit.MILLISECONDS
         )).findAuthors(request));
-        return completableFuture.thenApply(authorListResponse -> authorListResponse.getAuthorList()
-                .stream().collect(Collectors.toMap(TaskService.Author::getId, mapper::toAuthor)
-                ));
-    }
+        return completableFuture.thenApply(authorListResponse -> {
+            Map<Long, Author> longAuthorMap = authorListResponse.getAuthorList()
+                    .stream().collect(Collectors.toMap(TaskService.Author::getId, mapper::toAuthor)
+                    );
+            return newsList.stream()
+                    .collect(Collectors.toMap(Function.identity(), news -> longAuthorMap.get(news.authorId()))
+                    );
 
+        });
+    }
 }
