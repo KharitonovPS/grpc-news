@@ -49,7 +49,6 @@ public class AuthorCompositeService extends AuthorServiceGrpc.AuthorServiceImplB
     @Override
     public void findAuthors(TaskService.AuthorIdsRequest request, StreamObserver<TaskService.AuthorListResponse> responseObserver) {
         //имитация ошибок/нагрузки
-        int count = retryCounter.incrementAndGet();
         if (random.nextFloat() < UNAVAILABLE_PERCENTAGE) {
             log.info("Returning stubbed UNAVAILABLE error findByIds(). count: {}", retryCounter.incrementAndGet());
             responseObserver.onError(Status.UNAVAILABLE

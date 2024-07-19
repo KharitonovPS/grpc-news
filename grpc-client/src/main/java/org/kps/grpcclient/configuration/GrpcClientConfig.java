@@ -4,6 +4,7 @@ import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import org.kps.grpc.AuthorServiceGrpc;
 import org.kps.grpc.NewsServiceGrpc;
+import org.kps.grpcclient.common.ClientLoggingInterceptor;
 import org.kps.grpcclient.configuration.properties.GrpcClientProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,6 +24,8 @@ public class GrpcClientConfig {
                 )
                 //best practice по умолчанию выбирается первый клиент
                 .defaultLoadBalancingPolicy("round_robin")
+                //на подобие фильтров, исп для кеша, админки, хедеров, обработки ошибок
+                .intercept(new ClientLoggingInterceptor())
                 .usePlaintext()
                 .build();
         return managedChannel;
