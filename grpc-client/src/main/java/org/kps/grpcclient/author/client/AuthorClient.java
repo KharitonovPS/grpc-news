@@ -19,6 +19,8 @@ import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import static org.kps.grpcclient.utils.TaskExecutor.VIRTUAL_THREAD_TASK_EXECUTOR;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -32,9 +34,11 @@ public class AuthorClient {
                 .setId(id).build();
 
         var completableFuture = FutureConverter.toCompletableFuture(futureStub.withDeadline(Deadline.after(
-                4000L,
-                TimeUnit.MILLISECONDS
-        )).findAuthor(request));
+                        4000L,
+                        TimeUnit.MILLISECONDS
+                )).withExecutor(VIRTUAL_THREAD_TASK_EXECUTOR)
+
+                                                                            .findAuthor(request));
         return completableFuture.thenApply(mapper::toAuthor);
     }
 
@@ -42,10 +46,13 @@ public class AuthorClient {
         TaskService.AuthorIdsRequest request = TaskService.AuthorIdsRequest.newBuilder()
                 .addAllId(authorIds).build();
 
-        CompletableFuture<TaskService.AuthorListResponse> completableFuture = FutureConverter.toCompletableFuture(futureStub.withDeadline(Deadline.after(
-                4000L,
-                TimeUnit.MILLISECONDS
-        )).findAuthors(request));
+        CompletableFuture<TaskService.AuthorListResponse> completableFuture = FutureConverter.toCompletableFuture(
+                futureStub.withDeadline(Deadline.after(
+                                4000L,
+                                TimeUnit.MILLISECONDS
+                        ))
+                        .withExecutor(VIRTUAL_THREAD_TASK_EXECUTOR)
+                        .findAuthors(request));
         return completableFuture.thenApply(authorListResponse -> {
             Map<Long, Author> longAuthorMap = authorListResponse.getAuthorList()
                     .stream().collect(Collectors.toMap(TaskService.Author::getId, mapper::toAuthor)

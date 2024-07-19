@@ -21,6 +21,8 @@ public class GrpcClientConfig {
         this.managedChannel = ManagedChannelBuilder.forTarget(
                         clientProperties.host() + ":" + clientProperties.port()
                 )
+                //best practice по умолчанию выбирается первый клиент
+                .defaultLoadBalancingPolicy("round_robin")
                 .usePlaintext()
                 .build();
         return managedChannel;
@@ -28,12 +30,12 @@ public class GrpcClientConfig {
 
     @Bean
     public AuthorServiceGrpc.AuthorServiceFutureStub authorServiceFutureStub(GrpcClientProperties clientProperties){
-        return AuthorServiceGrpc.newFutureStub(managedChannel(clientProperties));
+        return AuthorServiceGrpc.newFutureStub(this.managedChannel(clientProperties));
     }
 
     @Bean
     public NewsServiceGrpc.NewsServiceFutureStub newsServiceFutureStub(GrpcClientProperties clientProperties){
-        return NewsServiceGrpc.newFutureStub(managedChannel(clientProperties));
+        return NewsServiceGrpc.newFutureStub(this.managedChannel(clientProperties));
     }
 
     @PreDestroy()

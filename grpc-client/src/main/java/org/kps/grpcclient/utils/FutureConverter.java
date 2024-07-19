@@ -6,17 +6,17 @@ import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
 import io.grpc.Status;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.core.task.VirtualThreadTaskExecutor;
 
 import java.util.concurrent.CompletableFuture;
+
+import static org.kps.grpcclient.utils.TaskExecutor.VIRTUAL_THREAD_TASK_EXECUTOR;
 
 @Slf4j
 public class FutureConverter {
 
     private FutureConverter() {}
 
-    private static final VirtualThreadTaskExecutor TASK_EXECUTOR = new VirtualThreadTaskExecutor(
-            FutureConverter.class.getName() + "-pool");
+
 
     public static <T> CompletableFuture<T> toCompletableFuture(ListenableFuture<T> listenableFuture) {
         CompletableFuture<T> completableFuture = new CompletableFuture<>();
@@ -37,7 +37,7 @@ public class FutureConverter {
                     completableFuture.completeExceptionally(t);
                 }
             }
-        }, TASK_EXECUTOR);
+        }, VIRTUAL_THREAD_TASK_EXECUTOR);
         return completableFuture;
     }
 }
