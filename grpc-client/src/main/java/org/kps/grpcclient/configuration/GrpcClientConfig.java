@@ -7,6 +7,7 @@ import org.kps.grpc.NewsServiceGrpc;
 import org.kps.grpcclient.configuration.properties.GrpcClientProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 
 import javax.annotation.PreDestroy;
 
@@ -26,13 +27,13 @@ public class GrpcClientConfig {
     }
 
     @Bean
-    public AuthorServiceGrpc.AuthorServiceFutureStub authorServiceFutureStub(){
-        return AuthorServiceGrpc.newFutureStub(managedChannel);
+    public AuthorServiceGrpc.AuthorServiceFutureStub authorServiceFutureStub(GrpcClientProperties clientProperties){
+        return AuthorServiceGrpc.newFutureStub(managedChannel(clientProperties));
     }
 
     @Bean
-    public NewsServiceGrpc.NewsServiceFutureStub newsServiceFutureStub(){
-        return NewsServiceGrpc.newFutureStub(managedChannel);
+    public NewsServiceGrpc.NewsServiceFutureStub newsServiceFutureStub(GrpcClientProperties clientProperties){
+        return NewsServiceGrpc.newFutureStub(managedChannel(clientProperties));
     }
 
     @PreDestroy()

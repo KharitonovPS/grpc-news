@@ -26,20 +26,8 @@ import java.util.stream.Collectors;
 public class AuthorController {
 
     private final AuthorClient authorClient;
-//    private final DataLoader<Long, Author> authorDataLoader;
-
-
-//    public AuthorController(BatchLoaderRegistry registry, AuthorClient authorClient) {
-//        registry.forTypePair(Long.class, Author.class)
-//                .registerMappedBatchLoader((authorIds, env) ->
-//                        Mono.fromFuture(authorClient.findAuthorsByIds(authorIds)));
-//        this.authorClient = authorClient;
-//        this.authorDataLoader= DataLoaderFactory.newDataLoader(                registry.(Long.class, Author.class));
-
-//    }
 
     @BatchMapping
-//    public Mono<Map<News, Author>> author(List<News> news) {
     public Mono<Map<News, Author>> author(List<News> news) {
         Set<Long> authorIds = news.stream()
                 .mapToLong(News::authorId)
@@ -49,12 +37,11 @@ public class AuthorController {
         return  Mono.fromFuture(authorClient.findAuthorsByIds(news,authorIds));
     }
 
-
-    // сущности связаны по id, автор тянется 2 запросом
-    @SchemaMapping
-    public CompletableFuture<Author> author(News news) {
-        return authorClient.findById(news.authorId());
-    }
+    //не нужен из-за батч запроса, все время тянет с сервера findAuthorsByIds, то с 1 id то с листом
+//    @SchemaMapping
+//    public CompletableFuture<Author> author(News news) {
+//        return authorClient.findById(news.authorId());
+//    }
 
     @QueryMapping
     public CompletableFuture<Author> authorById(@Argument Long id) {
