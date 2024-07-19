@@ -29,31 +29,51 @@ public class AuthorClient {
     private final AuthorMapper mapper;
     private final AuthorServiceGrpc.AuthorServiceFutureStub futureStub;
 
+    /*
+    Спекулятивные вызовы: Мы добавляем второй параллельный вызов для методов findById и findAuthorsByIds,
+     используя CompletableFuture. если сервер будет загибаться то это даст лучшие результаты,
+     юзать только с идемпотентными методами! get put delete
+     */
+
+
     public CompletableFuture<Author> findById(Long id) {
         TaskService.AuthorRequest request = TaskService.AuthorRequest.newBuilder()
                 .setId(id).build();
 
-        var completableFuture = FutureConverter.toCompletableFuture(futureStub.withDeadline(Deadline.after(
+        var future1 = FutureConverter.toCompletableFuture(futureStub.withDeadline(Deadline.after(
                         4000L,
                         TimeUnit.MILLISECONDS
                 )).withExecutor(VIRTUAL_THREAD_TASK_EXECUTOR)
-
-                                                                            .findAuthor(request));
-        return completableFuture.thenApply(mapper::toAuthor);
+                                                                  .findAuthor(request));
+        var future2 = FutureConverter.toCompletableFuture(futureStub.withDeadline(Deadline.after(
+                        4000L,
+                        TimeUnit.MILLISECONDS
+                )).withExecutor(VIRTUAL_THREAD_TASK_EXECUTOR)
+                                                                  .findAuthor(request));
+        return CompletableFuture.anyOf(future1, future2)
+                .thenApply(response -> mapper.toAuthor((TaskService.Author) response));
     }
 
     public CompletableFuture<Map<News, Author>> findAuthorsByIds(List<News> newsList, Set<Long> authorIds) {
         TaskService.AuthorIdsRequest request = TaskService.AuthorIdsRequest.newBuilder()
                 .addAllId(authorIds).build();
 
-        CompletableFuture<TaskService.AuthorListResponse> completableFuture = FutureConverter.toCompletableFuture(
+        var future1 = FutureConverter.toCompletableFuture(
                 futureStub.withDeadline(Deadline.after(
                                 4000L,
                                 TimeUnit.MILLISECONDS
                         ))
                         .withExecutor(VIRTUAL_THREAD_TASK_EXECUTOR)
                         .findAuthors(request));
-        return completableFuture.thenApply(authorListResponse -> {
+        var future2 = FutureConverter.toCompletableFuture(
+                futureStub.withDeadline(Deadline.after(
+                                4000L,
+                                TimeUnit.MILLISECONDS
+                        ))
+                        .withExecutor(VIRTUAL_THREAD_TASK_EXECUTOR)
+                        .findAuthors(request));
+        return CompletableFuture.anyOf(future1, future2).thenApply(response -> {
+            TaskService.AuthorListResponse authorListResponse = (TaskService.AuthorListResponse) response;
             Map<Long, Author> longAuthorMap = authorListResponse.getAuthorList()
                     .stream().collect(Collectors.toMap(TaskService.Author::getId, mapper::toAuthor)
                     );
