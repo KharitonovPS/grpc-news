@@ -19,7 +19,7 @@ subprojects {
     }
 
     java {
-        sourceCompatibility = '17'
+        sourceCompatibility = '21'
     }
 
     configurations {
@@ -85,4 +85,4 @@ subprojects {
     }
 }
 
-jar.enabled = true
+jar.enabled = false
