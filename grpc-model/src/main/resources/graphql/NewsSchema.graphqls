@@ -40,3 +40,23 @@ enum Rating {
     TWO_STAR
     ONE_STAR
 }
+
+#paging можно скипнуть с помощью ConnectionTypeDefinitionConfigurer
+type NewsConnection {
+    edges: [NewsEdge]!
+    pageInfo: PageInfo!
+}
+
+type NewsEdge {
+    node: News!
+    cursor: String!
+}
+
+type PageInfo {
+    hasPreviousPage: Boolean!
+    hasNextPage: Boolean!
+    startCursor: String
+    endCursor: String
+}
+
+
