@@ -2,6 +2,8 @@ type Query {
     newsByName(name: String!): News
     findAll: [News]!
     authorById(id: ID): Author
+    news(first:Int, after:String, last:Int, before:String): NewsConnection
+
 }
 
 type Mutation {
