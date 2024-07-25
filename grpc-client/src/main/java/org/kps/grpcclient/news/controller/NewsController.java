@@ -2,8 +2,11 @@ package org.kps.grpcclient.news.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.kps.grpcclient.news.client.NewsClient;
+import org.kps.grpcmodel.model.Author;
 import org.kps.grpcmodel.model.News;
+import org.kps.grpcmodel.model.NewsInput;
 import org.springframework.graphql.data.method.annotation.Argument;
+import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.stereotype.Controller;
 
@@ -34,7 +37,7 @@ public class NewsController {
 //        var newNews = new News("newId", newsInput.name(), newsInput.pageCount(), newsInput.rating(), author.id());
 //        return News.create(newNews);
 //    }
-//
+
 //    @MutationMapping
 //    public News updateNews(@Argument String id, @Argument NewsInput newsInput) {
 //        return News.updateNews(id, newsInput.name(), newsInput.pageCount(), newsInput.rating(), newsInput.authorId());

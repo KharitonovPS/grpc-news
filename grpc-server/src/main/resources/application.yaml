@@ -1,6 +1,12 @@
 spring:
   application.name: grpc-server
+  datasource:
+    url: jdbc:postgresql://localhost:5432/news
+    username: postgres
+    password: password
+
 grpc:
   host: localhost
   port: 8079
   is-async: false
+

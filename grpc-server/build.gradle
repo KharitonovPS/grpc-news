@@ -5,4 +5,8 @@ dependencies {
     implementation 'org.jooq:jooq:3.16.4'
     implementation 'org.jooq:jooq-meta:3.16.4'
     implementation 'org.jooq:jooq-codegen:3.16.4'
+
+    implementation 'org.springframework:spring-jdbc:6.1.10'
+    implementation 'org.springframework:spring-context:6.1.10'
+
 }
