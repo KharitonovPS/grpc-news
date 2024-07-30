@@ -1,9 +1,9 @@
 spring:
   application.name: grpc-server
   datasource:
-    url: jdbc:postgresql://localhost:5432/news
-    username: postgres
-    password: password
+    url: jdbc:postgresql://localhost:5433/news
+    username: pg
+    password: 123
 
 grpc:
   host: localhost
